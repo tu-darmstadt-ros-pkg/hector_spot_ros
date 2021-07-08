@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <node pkg="hector_spot_ros" type="mission_recorder_node.py" name="mission_recorder" output="screen" respawn="false">
+  </node>
+
+</launch>

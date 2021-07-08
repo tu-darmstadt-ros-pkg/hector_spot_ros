@@ -1,0 +1,38 @@
+FROM ros:melodic-ros-base
+SHELL ["/bin/bash", "-c"]
+# Install dependencies
+RUN apt update && apt install -y python3-pip python-catkin-tools
+RUN pip3 install --upgrade pip
+
+# Install bosdyn client
+RUN python3 -m pip install bosdyn-client==2.0.1
+
+# Install Python3 ROS dependencies
+RUN python3 -m pip install rospkg catkin_pkg opencv-python
+
+# Set up workspace
+RUN mkdir -p catkin_ws/src
+WORKDIR /catkin_ws
+RUN source /opt/ros/melodic/setup.bash && catkin init
+#RUN echo "source /catkin_ws/devel/setup.bash" >> /root/.bashrc
+RUN sed -i 's#/opt/ros/$ROS_DISTRO/setup.bash#/catkin_ws/devel/setup.bash#' /ros_entrypoint.sh
+
+# Credentials
+COPY spot-credentials.yaml /
+ENV SPOT_CREDENTIALS_FILE=/spot-credentials.yaml
+
+# Install packages
+WORKDIR /catkin_ws/src
+RUN git clone https://github.com/tu-darmstadt-ros-pkg/move_base_lite.git --branch hector_exploration
+RUN touch /catkin_ws/src/move_base_lite/move_base_lite_server/CATKIN_IGNORE
+
+#RUN git clone https://git.sim.informatik.tu-darmstadt.de/hector/hector_spot_ros.git --branch master
+RUN mkdir hector_spot_ros
+COPY . hector_spot_ros/
+
+RUN rosdep install --from-paths . --ignore-src -r -y
+
+RUN source /opt/ros/melodic/setup.bash && catkin build
+
+ENTRYPOINT ["/ros_entrypoint.sh"]
+CMD ["roslaunch", "hector_spot_ros", "spot.launch"]

@@ -1,0 +1,23 @@
+# Initialize the localization by either known pose or fiducial (visual marker)
+
+geometry_msgs/PoseStamped initial_guess # Operator-supplied guess at localization.
+                                        # Set the frame_id to the respective waypoint id.
+                                        # Frames other than waypoints are not supported right now.
+                                        # Set the stamp to the time that the localization was valid.
+float64 max_distance # The UI may specify how close we are to that initial guess. 
+                    # If not specified the offset is used directly. Otherwise it searches a neighborhood of the given size. meters
+float64 max_yaw      # Same as above. radians
+
+int32 FIDUCIAL_INIT_UNKNOWN = 0 # It is a programming error to use this one.
+int32 FIDUCIAL_INIT_NO_FIDUCIAL = 1 # Ignore fiducials during initialization.
+int32 FIDUCIAL_INIT_NEAREST = 2 # Localize to the nearest fiducial in any waypoint.
+int32 FIDUCIAL_INIT_NEAREST_AT_TARGET = 3 # Localize to nearest fiducial at the target waypoint.
+int32 FIDUCIAL_INIT_SPECIFIC = 4 # Localize to the given fiducial at the target waypoint.
+int32 fiducial_init # Tells the initializer whether to use fiducials, and how to use them (see enumerations above).
+
+int32 use_fiducial_id # If using FIDUCIAL_INIT_SPECIFIC, this is the specific fiducial ID to use for initialization.
+bool refine_fiducial_result_with_icp # If true, and we are using fiducials during initialization, will run ICP after the fiducial was used for an initial guess.
+bool do_ambiguity_check	# If true, consider how nearby localizations appear (like turned 180). 
+---
+bool success
+string message

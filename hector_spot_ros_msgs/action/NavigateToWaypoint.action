@@ -1,0 +1,14 @@
+# Tell GraphNav to navigate to a waypoint along a route it chooses.
+
+string waypoint_id  # ID of the waypoint to go to.
+
+# Velocity limit
+float64 linear_velocity_limit
+float64 angular_velocity_limit
+
+# Thresholds that define when we have reached the final waypoint.
+float64 max_distance
+float64 max_yaw
+---
+string result
+---

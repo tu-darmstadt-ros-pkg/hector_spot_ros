@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>hector_spot_ros</name>
+  <version>0.0.0</version>
+  <description>ROS driver for the Boston Dynamics Spot robot</description>
+
+  <maintainer email="oehler@sim.tu-darmstadt.de">Martin Oehler</maintainer>
+
+  <license>MIT</license>
+
+  <author email="oehler@sim.tu-darmstadt.de">Martin Oehler</author>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>tf2_msgs</exec_depend>
+  <exec_depend>move_base_lite_msgs</exec_depend>
+  <exec_depend>actionlib</exec_depend>
+  <exec_depend>std_srvs</exec_depend>
+  <exec_depend>hector_spot_ros_msgs</exec_depend>
+  <exec_depend>grid_map_msgs</exec_depend>
+  <exec_depend>visualization_msgs</exec_depend>
+
+  <export>
+  </export>
+</package>

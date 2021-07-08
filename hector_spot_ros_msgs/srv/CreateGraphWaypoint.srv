@@ -1,0 +1,4 @@
+# Create a new waypoint at the current localization.
+string waypoint_name  # Name of the waypoint to create. Overrides any naming prefix.
+---
+string waypoint_id  # Unique identifier of the created waypoint

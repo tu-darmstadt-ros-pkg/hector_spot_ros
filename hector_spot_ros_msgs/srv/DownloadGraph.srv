@@ -1,0 +1,9 @@
+# Download the graph from the robot which represents the navigation map
+# Optional: Save it to a file
+# Optional: Transform the data into a global frame and publish it to ros
+
+string save_file_path # Absolute path to the save location. Leave empty to not save.
+bool publish_data # Publish the data on ros topics
+---
+bool success # Indicates success or failure to retrieve (and possibly save) the data
+string message # Contains error messages in case of failure

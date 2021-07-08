@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <node pkg="hector_spot_ros" type="spot_ros_interface_node.py" name="spot_ros_interface_node" output="screen" respawn="false">
+    <rosparam file="$(find hector_spot_ros)/config/spot.yaml" command="load"/>
+    <rosparam file="$(env SPOT_CREDENTIALS_FILE)" command="load"/>
+  </node>
+
+</launch>

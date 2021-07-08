@@ -1,0 +1,6 @@
+string mission_name
+float64 linear_velocity_limit
+float64 angular_velocity_limit
+---
+string result
+---

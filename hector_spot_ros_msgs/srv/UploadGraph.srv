@@ -1,0 +1,6 @@
+# Upload a graph to spot
+
+string load_file_path # Absolute path to the data location.
+---
+bool success # Indicates success or failure to load the data
+string message # Contains error messages in case of failure
