@@ -66,6 +66,7 @@ def clamp(val, limit):
 def convert_timestamp_from_robot_to_local(timestamp_proto, clock_skew):
     robot_nsecs = bosdyn.util.timestamp_to_nsec(timestamp_proto)
     local_nsecs = robot_nsecs - bosdyn.util.timestamp_to_nsec(clock_skew)
+    local_nsecs = max(local_nsecs, 0)  # Prevent negative timestamps
     local_timestamp = bosdyn.util.nsec_to_timestamp(local_nsecs)
     return local_timestamp
 

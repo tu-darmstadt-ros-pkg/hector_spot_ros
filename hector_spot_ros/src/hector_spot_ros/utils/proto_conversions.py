@@ -125,8 +125,12 @@ def quaternion_msg_to_proto(quaternion_msg):
 
 
 def timestamp_proto_to_ros_time(timestamp, clock_skew):
-    local_timestamp = convert_timestamp_from_robot_to_local(timestamp, clock_skew)
-    return rospy.Time(secs=local_timestamp.seconds, nsecs=local_timestamp.nanos)
+    if timestamp.seconds > 0 or timestamp.nanos > 0:  # Catch empty time stamps
+        local_timestamp = convert_timestamp_from_robot_to_local(timestamp, clock_skew)
+        time = rospy.Time(secs=local_timestamp.seconds, nsecs=local_timestamp.nanos)
+    else:
+        time = rospy.Time()
+    return time
 
 
 def timestamp_ros_time_to_proto(ros_time, clock_skew):
