@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch> 
+  <arg name="launch_joy_node" default="false"/>
+  <arg name="joy_dev" default="/dev/input/js0" />
+  
+  <node pkg="joy" type="joy_node" name="joy_node" if="$(arg launch_joy_node)">
+    <param name="dev" value="$(arg joy_dev)" />
+    <param name="deadzone" value="0.1" />
+    <!--<param name="autorepeat_rate" value="20" />-->
+    <param name="default_trig_val" value="true"/>
+    <param name="autorepeat_rate" value="10"/>
+  </node>
+  
+  <rosparam command="load" file="$(find hector_spot_ros)/config/joy_config.yaml"/>
+  <node name="joy_teleop_node" pkg="joy_teleop" type="joy_teleop.py" respawn="true" output="screen">
+  </node>
+</launch>

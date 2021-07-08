@@ -1,0 +1,39 @@
+teleop:
+  move:
+    type: topic
+    message_type: geometry_msgs/Twist
+    topic_name: /cmd_vel_raw
+    axis_mappings:
+      - axis: 1
+        target: linear.x
+        scale: 1.0
+      - axis: 0
+        target: linear.y
+        scale: 1.0
+      - axis: 3
+        target: angular.z
+        scale: 1.0
+  power_on:
+    type: service
+    service_name: /spot_ros_interface_node/power_on
+    buttons: [2]
+  power_off:
+    type: service
+    service_name: /spot_ros_interface_node/safe_power_off
+    buttons: [3]
+  stand_up:
+    type: service
+    service_name: /spot_ros_interface_node/stand_up
+    buttons: [0]
+  sit_down:
+    type: service
+    service_name: /spot_ros_interface_node/sit_down
+    buttons: [1]
+  start_mission_record:
+    type: service
+    service_name: /mission_recorder/start_mission_recording
+    buttons: [4]
+  stop_mission_record:
+    type: service
+    service_name: /mission_recorder/stop_mission_recording
+    buttons: [5]
