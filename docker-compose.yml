@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  hector_spot_ros:
+    image: hector_spot_ros
+    #command:
+    #working_dir:
+    volumes:
+      - ./:/catkin_ws/src/hector_spot_ros
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    network_mode: host
