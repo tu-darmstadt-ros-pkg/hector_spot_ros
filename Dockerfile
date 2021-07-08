@@ -1,11 +1,11 @@
 FROM ros:melodic-ros-base
 SHELL ["/bin/bash", "-c"]
+
+ENV SDK_VERSION=2.3.5
+
 # Install dependencies
 RUN apt update && apt install -y python3-pip python-catkin-tools
 RUN pip3 install --upgrade pip
-
-# Install bosdyn client
-RUN python3 -m pip install bosdyn-client==2.0.1
 
 # Install Python3 ROS dependencies
 RUN python3 -m pip install rospkg catkin_pkg opencv-python
@@ -16,6 +16,9 @@ WORKDIR /catkin_ws
 RUN source /opt/ros/melodic/setup.bash && catkin init
 #RUN echo "source /catkin_ws/devel/setup.bash" >> /root/.bashrc
 RUN sed -i 's#/opt/ros/$ROS_DISTRO/setup.bash#/catkin_ws/devel/setup.bash#' /ros_entrypoint.sh
+
+# Install bosdyn client
+RUN python3 -m pip install bosdyn-client==$SDK_VERSION
 
 # Credentials
 COPY spot-credentials.yaml /
@@ -30,7 +33,7 @@ RUN touch /catkin_ws/src/move_base_lite/move_base_lite_server/CATKIN_IGNORE
 RUN mkdir hector_spot_ros
 COPY . hector_spot_ros/
 
-RUN rosdep install --from-paths . --ignore-src -r -y
+RUN apt update && rosdep install --from-paths . --ignore-src -r -y
 
 RUN source /opt/ros/melodic/setup.bash && catkin build
 
