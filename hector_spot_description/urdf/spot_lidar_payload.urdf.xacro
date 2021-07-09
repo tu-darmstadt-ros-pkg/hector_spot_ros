@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<robot name="spot_lidar_payload" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:macro name="spot_lidar_payload">
+   
+  </xacro:macro>
+</robot>

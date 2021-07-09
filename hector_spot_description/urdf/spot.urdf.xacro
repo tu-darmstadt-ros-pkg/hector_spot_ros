@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<robot name="spot" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find hector_spot_description)/urdf/spot_base.urdf.xacro"/>
+
+  <!-- Base Spot robot -->
+  <xacro:spot_base/>
+</robot>
