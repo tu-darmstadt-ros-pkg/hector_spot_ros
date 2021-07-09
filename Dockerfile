@@ -20,10 +20,6 @@ RUN sed -i 's#/opt/ros/$ROS_DISTRO/setup.bash#/catkin_ws/devel/setup.bash#' /ros
 # Install bosdyn client
 RUN python3 -m pip install bosdyn-client==$SDK_VERSION
 
-# Credentials
-COPY spot-credentials.yaml /
-ENV SPOT_CREDENTIALS_FILE=/spot-credentials.yaml
-
 # Install packages
 WORKDIR /catkin_ws/src
 RUN git clone https://github.com/tu-darmstadt-ros-pkg/move_base_lite.git --branch hector_exploration
