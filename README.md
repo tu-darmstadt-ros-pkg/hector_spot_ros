@@ -1,45 +1,78 @@
+
 # hector_spot_ros
 ## Overview
-This package provides a [ROS](http://www.ros.org/) interface to control the [Boston Dynamics Spot](https://www.bostondynamics.com/spot). It provides most functionalities of the [spot-sdk](https://github.com/boston-dynamics/spot-sdk) via topics and services, e.g. power on/off, movement commands, robot state and sensor access.
-## Installation
-### spot-sdk
-First, install the [BD Spot SDK](https://github.com/boston-dynamics/spot-sdk). The following is a condensed version of [quickstart.md](https://github.com/boston-dynamics/spot-sdk/blob/master/docs/python/quickstart.md).
+This package provides a [ROS](http://www.ros.org/) interface to control the [Boston Dynamics Spot](https://www.bostondynamics.com/spot). It provides most functionalities of the [spot-sdk](https://github.com/boston-dynamics/spot-sdk) via topics, services and actions, e.g. power on/off, movement commands, robot state and sensor access.
+
+## Getting started
+### Docker Install
+Docker is the easiest way for installation. You will need the [Docker Engine](https://docs.docker.com/engine/install/) and [Docker Compose](https://docs.docker.com/compose/install/).
+
+Clone the hector_spot_ros repository somewhere onto your disk
+```
+git clone https://github.com/tu-darmstadt-ros-pkg/hector_spot_ros
+```
+Copy the credentials example file and fill it with your spot hostname and login data
+```
+cd hector_spot_ros/hector_spot_ros/config/
+cp spot-credentials-example.yaml spot-credentials.yaml
+xdg-open spot-credentials.yaml
+```
+Go back to the root folder and build the docker image with
+```
+cd ../..
+docker build . -t hector_spot_ros
+```
+Start the image in a container with
+```
+docker-compose up
+```
+You should now be able to see the provided interface on your local host. For details, see the "Nodes" section below
+```
+rostopic list
+rosservice list
+```
+The provided Dockerfile is intended for development purposes. By default, the local hector_spot_ros folder is mounted in the container. This allows for development without the need to rebuild the image on every code change. The volume should be removed for production environments.
+
+### Manual Install
+First, install the [BD Spot SDK](https://github.com/boston-dynamics/spot-sdk). The following is a condensed version of [quickstart](https://dev.bostondynamics.com/docs/python/quickstart).
 
 Install PIP3 by running
 ```
 sudo apt-get install python3-pip
-pip3 --version
 pip3 install --upgrade pip
 ```
-Afterwards, clone the sdk repository into your home folder
+Install the spot sdk via pip
 ```
-git clone https://github.com/boston-dynamics/spot-sdk.git
+python3 -m pip install bosdyn-client
 ```
-and install the contents
-```
-pip3 install --upgrade --find-links=~/spot-sdk/prebuilt bosdyn-client
-```
+
 Since the spot sdk is using Python3, we need to install some additional ros packages:
 ```
 pip3 install rospkg catkin_pkg opencv-python
 ```
-### hector_spot_ros
 Clone hector_spot_ros into your catkin workspace
 ```
-git clone [TBD]
+git clone https://github.com/tu-darmstadt-ros-pkg/hector_spot_ros
+```
+Copy the credentials example file and fill it with your spot hostname and login data
+```
+cd hector_spot_ros/hector_spot_ros/config/
+cp spot-credentials-example.yaml spot-credentials.yaml
+xdg-open spot-credentials.yaml
 ```
 Install the dependencies
 ```
 rosdep install hector_spot_ros
 ```
 and build your workspace.
-## Getting started
-Make sure, that your URDF follows the [ROS standard](https://www.ros.org/reps/rep-0105.html#base-link) and has a base frame named `base_link`, which is the body frame of spot. Instructions on how to pull an URDF directly from spot can be found below.
-The node `spot_ros_interface_node.py` starts this driver. Make sure to provide at least a minimum launch configuration (spot host name, credentials, apptoken) via the parameter server. 
-An example launch-configuration can be found [here (TODO)](TODO).
+Start the driver in a new terminal
+```
+roslaunch hector_spot_ros spot.launch
+```
+
 ## Nodes
 ### spot_ros_interface_node.py
-This is the main driver node which offers topic and service interfaces for all functionalities. It acquires a lease on startup, so starting this node multiple times will lead to conflicts. When the node is shut down (e.g. via Ctrl+C), the robot will go into a safe state before cutting motor power. Currently, it is not possible to cut motor power in an unsafe state using this driver.
+This is the main driver node which offers topic, service and action interfaces for Spot's functionalities. It acquires a lease on startup, so starting this node multiple times will lead to conflicts. When the node is shut down (e.g. via Ctrl+C), the robot will go into a safe state before cutting motor power. Currently, it is not possible to cut motor power in an unsafe state using this driver.
 If the driver loses connection, the robot will go into a safe state after a few seconds.
 #### Subscribed Topics
 * **`/cmd_vel_raw`** ([geometry_msgs/Twist])
@@ -126,8 +159,6 @@ If the driver loses connection, the robot will go into a safe state after a few 
 * **`~[camera_source_name]_desired_rate`** (double, default: 10.0)
 
     Desired rate of the respective camera, e.g. `~left_depth_desired_rate`.
-## Retrieving the robot URDF
-TODO
 
 ## Bugs & Feature Requests
 Submit bugs and feature requests using the Issue Tracker. Pull Requests are welcomed.
@@ -144,7 +175,6 @@ Submit bugs and feature requests using the Issue Tracker. Pull Requests are welc
 [sensor_msgs/CameraInfo]:http://docs.ros.org/melodic/api/sensor_msgs/html/msg/CameraInfo.html
 [sensor_msgs/PointCloud2]: http://docs.ros.org/melodic/api/sensor_msgs/html/msg/PointCloud2.htmlhttp://docs.ros.org/api/sensor_msgs/html/msg/PointCloud2.html
 [std_srvs/Empty]:http://docs.ros.org/melodic/api/std_srvs/html/srv/Empty.html
-[hector_spot_ros_msgs/SetMobilityParams]
-[MobilityParams]
+[hector_spot_ros_msgs/SetMobilityParams]:hector_spot_ros_msgs/srv/SetMobilityParams.srv
+[MobilityParams]:hector_spot_ros_msgs/msg/MobilityParams.msg
 [move_base_lite_msgs/FollowPathAction]:[https://github.com/tu-darmstadt-ros-pkg/move_base_lite/blob/hector_exploration/move_base_lite_msgs/action/FollowPath.action](https://github.com/tu-darmstadt-ros-pkg/move_base_lite/blob/hector_exploration/move_base_lite_msgs/action/FollowPath.action)
-
