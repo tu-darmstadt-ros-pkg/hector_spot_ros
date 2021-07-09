@@ -2,7 +2,7 @@
 
 # hector_spot_ros
 ## Overview
-This package provides a [ROS](http://www.ros.org/) interface to control the [Boston Dynamics Spot](https://www.bostondynamics.com/spot). It provides most functionalities of the [spot-sdk](https://github.com/boston-dynamics/spot-sdk) via topics, services and actions, e.g. power on/off, movement commands, robot state and sensor access.
+This package provides a [ROS](http://www.ros.org/) interface to control the [Boston Dynamics Spot](https://www.bostondynamics.com/spot). It provides most functionalities of the [spot-sdk](https://github.com/boston-dynamics/spot-sdk) via topics, services and actions, e.g. power on/off, movement commands, robot state, sensor access and GraphNav functionality.
 
 ## Getting started
 ### Docker Install
@@ -117,7 +117,7 @@ If the driver loses connection, the robot will go into a safe state after a few 
 
     TF transforms for the camera optical frames relative to `base_link`. The transforms are automatically updated after performing calibration.
     
-* **`~map_to_odom_vision_tf` and `map_to_odom_kinematic_tf` ** ([tf2_msgs/TFMessage])
+* **`~map_to_odom_vision_tf`** and **`~map_to_odom_kinematic_tf`** ([tf2_msgs/TFMessage])
 
     Publishes a transform from the fixed GraphNav-frame to either vision or kinematic odometry. Remap the respective topic to `/tf` to use the transform. Only available if the robot is properly localized with [GraphNav](https://dev.bostondynamics.com/docs/concepts/autonomy/graphnav_service). 
     
@@ -243,7 +243,7 @@ Submit bugs and feature requests using the Issue Tracker. Pull Requests are welc
 [std_srvs/Empty]:http://docs.ros.org/melodic/api/std_srvs/html/srv/Empty.html
 [hector_spot_ros_msgs/SetMobilityParams]:hector_spot_ros_msgs/srv/SetMobilityParams.srv
 [MobilityParams]:hector_spot_ros_msgs/msg/MobilityParams.msg
-[move_base_lite_msgs/FollowPathAction]:[https://github.com/tu-darmstadt-ros-pkg/move_base_lite/blob/hector_exploration/move_base_lite_msgs/action/FollowPath.action](https://github.com/tu-darmstadt-ros-pkg/move_base_lite/blob/hector_exploration/move_base_lite_msgs/action/FollowPath.action)
+[move_base_lite_msgs/FollowPathAction]:https://github.com/tu-darmstadt-ros-pkg/move_base_lite/blob/hector_exploration/move_base_lite_msgs/action/FollowPath.action
 [grid_map_msgs/GridMap]:https://docs.ros.org/en/melodic/api/grid_map_msgs/html/msg/GridMap.html
 [visualization_msgs/MarkerArray]:http://docs.ros.org/en/melodic/api/visualization_msgs/html/msg/MarkerArray.html
 [geometry_msgs/PoseStamped]:https://docs.ros.org/en/melodic/api/geometry_msgs/html/msg/PoseStamped.html
