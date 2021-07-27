@@ -4,7 +4,7 @@
 
   <xacro:macro name="spot_base">
       
-    <link name="body">
+    <link name="base_link">
         <visual>
             <geometry>
                 <mesh filename="package://hector_spot_description/meshes/body.dae" />
@@ -17,28 +17,22 @@
         </collision>
     </link>
 
-    <link name="base_link"/>
-    <joint name="base_link_joint" type="fixed">
-        <origin xyz="0 0 0" rpy="0 0 0" />
-        <parent link="body" />
-        <child link="base_link" />
-    </joint>
 
     <link name="front_rail"/>
     <joint name="front_rail_joint" type="fixed">
         <origin xyz="0.223 0 0.0805" rpy="0 0 0" />
-        <parent link="body" />
+        <parent link="base_link" />
         <child link="front_rail" />
     </joint>
 
     <link name="rear_rail"/>
     <joint name="rear_rail_joint" type="fixed">
         <origin xyz="-0.223 0 0.0805" rpy="0 0 0" />
-        <parent link="body" />
+        <parent link="base_link" />
         <child link="rear_rail" />
     </joint>
 
-    <link name="front_left_hip">
+    <link name="fl.hip">
         <visual>
             <geometry>
                 <mesh filename="package://hector_spot_description/meshes/front_left_hip.dae" />
@@ -53,11 +47,11 @@
     <joint name="fl.hx" type="revolute">
         <origin xyz="0.29785 0.05500 0.00000" rpy="0 0 0" />
         <axis xyz="1 0 0" />
-        <parent link="body" />
-        <child link="front_left_hip" />
+        <parent link="base_link" />
+        <child link="fl.hip" />
         <limit effort="1000" velocity="1000.00" lower="-0.78539816339744827899" upper="0.78539816339744827899" />
     </joint>
-    <link name="front_left_upper_leg">
+    <link name="fl.uleg">
         <visual>
             <geometry>
                 <mesh filename="package://hector_spot_description/meshes/front_left_upper_leg.dae" />
@@ -72,11 +66,11 @@
     <joint name="fl.hy" type="revolute">
         <origin xyz="0.0 0.110945 0.0" rpy="0 0 0" />
         <axis xyz="0 1 0" />
-        <parent link="front_left_hip" />
-        <child link="front_left_upper_leg" />
+        <parent link="fl.hip" />
+        <child link="fl.uleg" />
         <limit effort="1000" velocity="1000.00" lower="-0.89884456477707963539" upper="2.2951079663725435509" />
     </joint>
-    <link name="front_left_lower_leg">
+    <link name="fl.lleg">
         <visual>
             <geometry>
                 <mesh filename="package://hector_spot_description/meshes/front_left_lower_leg.dae" />
@@ -91,11 +85,11 @@
     <joint name="fl.kn" type="revolute">
         <origin xyz="0.025 0.000 -0.3205" rpy="0 0 0" />
         <axis xyz="0 1 0" />
-        <parent link="front_left_upper_leg" />
-        <child link="front_left_lower_leg" />
+        <parent link="fl.uleg" />
+        <child link="fl.lleg" />
         <limit effort="1000" velocity="1000.00" lower="-2.7929" upper="-0.254801" />
     </joint>
-    <link name="front_right_hip">
+    <link name="fr.hip">
         <visual>
             <geometry>
                 <mesh filename="package://hector_spot_description/meshes/front_right_hip.dae" />
@@ -110,11 +104,11 @@
     <joint name="fr.hx" type="revolute">
         <origin xyz="0.29785 -0.05500 0.00000" rpy="0 0 0" />
         <axis xyz="1 0 0" />
-        <parent link="body" />
-        <child link="front_right_hip" />
+        <parent link="base_link" />
+        <child link="fr.hip" />
         <limit effort="1000" velocity="1000.00" lower="-0.78539816339744827899" upper="0.78539816339744827899" />
     </joint>
-    <link name="front_right_upper_leg">
+    <link name="fr.uleg">
         <visual>
             <geometry>
                 <mesh filename="package://hector_spot_description/meshes/front_right_upper_leg.dae" />
@@ -129,11 +123,11 @@
     <joint name="fr.hy" type="revolute">
         <origin xyz="0.0 -0.110945 0.0" rpy="0 0 0" />
         <axis xyz="0 1 0" />
-        <parent link="front_right_hip" />
-        <child link="front_right_upper_leg" />
+        <parent link="fr.hip" />
+        <child link="fr.uleg" />
         <limit effort="1000" velocity="1000.00" lower="-0.89884456477707963539" upper="2.2951079663725435509" />
     </joint>
-    <link name="front_right_lower_leg">
+    <link name="fr.lleg">
         <visual>
             <geometry>
                 <mesh filename="package://hector_spot_description/meshes/front_right_lower_leg.dae" />
@@ -148,11 +142,11 @@
     <joint name="fr.kn" type="revolute">
         <origin xyz="0.025 0.000 -0.3205" rpy="0 0 0" />
         <axis xyz="0 1 0" />
-        <parent link="front_right_upper_leg" />
-        <child link="front_right_lower_leg" />
+        <parent link="fr.uleg" />
+        <child link="fr.lleg" />
         <limit effort="1000" velocity="1000.00" lower="-2.7929" upper="-0.247563" />
     </joint>
-    <link name="rear_left_hip">
+    <link name="hl.hip">
         <visual>
             <geometry>
                 <mesh filename="package://hector_spot_description/meshes/rear_left_hip.dae" />
@@ -167,11 +161,11 @@
     <joint name="hl.hx" type="revolute">
         <origin xyz="-0.29785 0.05500 0.00000" rpy="0 0 0" />
         <axis xyz="1 0 0" />
-        <parent link="body" />
-        <child link="rear_left_hip" />
+        <parent link="base_link" />
+        <child link="hl.hip" />
         <limit effort="1000" velocity="1000.00" lower="-0.78539816339744827899" upper="0.78539816339744827899" />
     </joint>
-    <link name="rear_left_upper_leg">
+    <link name="hl.uleg">
         <visual>
             <geometry>
                 <mesh filename="package://hector_spot_description/meshes/rear_left_upper_leg.dae" />
@@ -186,11 +180,11 @@
     <joint name="hl.hy" type="revolute">
         <origin xyz="0.0 0.110945 0.0" rpy="0 0 0" />
         <axis xyz="0 1 0" />
-        <parent link="rear_left_hip" />
-        <child link="rear_left_upper_leg" />
+        <parent link="hl.hip" />
+        <child link="hl.uleg" />
         <limit effort="1000" velocity="1000.00" lower="-0.89884456477707963539" upper="2.2951079663725435509" />
     </joint>
-    <link name="rear_left_lower_leg">
+    <link name="hl.lleg">
         <visual>
             <geometry>
                 <mesh filename="package://hector_spot_description/meshes/rear_left_lower_leg.dae" />
@@ -205,11 +199,11 @@
     <joint name="hl.kn" type="revolute">
         <origin xyz="0.025 0.000 -0.3205" rpy="0 0 0" />
         <axis xyz="0 1 0" />
-        <parent link="rear_left_upper_leg" />
-        <child link="rear_left_lower_leg" />
+        <parent link="hl.uleg" />
+        <child link="hl.lleg" />
         <limit effort="1000" velocity="1000.00" lower="-2.7929" upper="-0.267153" />
     </joint>
-    <link name="rear_right_hip">
+    <link name="hr.hip">
         <visual>
             <geometry>
                 <mesh filename="package://hector_spot_description/meshes/rear_right_hip.dae" />
@@ -224,11 +218,11 @@
     <joint name="hr.hx" type="revolute">
         <origin xyz="-0.29785 -0.05500 0.00000" rpy="0 0 0" />
         <axis xyz="1 0 0" />
-        <parent link="body" />
-        <child link="rear_right_hip" />
+        <parent link="base_link" />
+        <child link="hr.hip" />
         <limit effort="1000" velocity="1000.00" lower="-0.78539816339744827899" upper="0.78539816339744827899" />
     </joint>
-    <link name="rear_right_upper_leg">
+    <link name="hr.uleg">
         <visual>
             <geometry>
                 <mesh filename="package://hector_spot_description/meshes/rear_right_upper_leg.dae" />
@@ -243,11 +237,11 @@
     <joint name="hr.hy" type="revolute">
         <origin xyz="0.0 -0.110945 0.0" rpy="0 0 0" />
         <axis xyz="0 1 0" />
-        <parent link="rear_right_hip" />
-        <child link="rear_right_upper_leg" />
+        <parent link="hr.hip" />
+        <child link="hr.uleg" />
         <limit effort="1000" velocity="1000.00" lower="-0.89884456477707963539" upper="2.2951079663725435509" />
     </joint>
-    <link name="rear_right_lower_leg">
+    <link name="hr.lleg">
         <visual>
             <geometry>
                 <mesh filename="package://hector_spot_description/meshes/rear_right_lower_leg.dae" />
@@ -262,8 +256,8 @@
     <joint name="hr.kn" type="revolute">
         <origin xyz="0.025 0.000 -0.3205" rpy="0 0 0" />
         <axis xyz="0 1 0" />
-        <parent link="rear_right_upper_leg" />
-        <child link="rear_right_lower_leg" />
+        <parent link="hr.uleg" />
+        <child link="hr.lleg" />
         <limit effort="1000" velocity="1000.00" lower="-2.7929" upper="-0.257725" />
     </joint>
   </xacro:macro>
