@@ -3,7 +3,14 @@
 <robot name="spot_base" xmlns:xacro="http://ros.org/wiki/xacro">
 
   <xacro:macro name="spot_base">
-      
+    
+    <link name="base_link"/>
+    
+    <joint name="base_link_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="body" />
+    </joint>
+    
     <link name="body">
         <visual>
             <geometry>
@@ -20,13 +27,6 @@
              <inertia  ixx="0.085" ixy="0.0"  ixz="0.0"  iyy="1.045"  iyz="0.0"  izz="1.042" />
         </inertial>
     </link>
-
-    <link name="base_link"/>
-    <joint name="base_link_joint" type="fixed">
-        <origin xyz="0 0 0" rpy="0 0 0" />
-        <parent link="body" />
-        <child link="base_link" />
-    </joint>
 
     <link name="front_rail"/>
     <joint name="front_rail_joint" type="fixed">
