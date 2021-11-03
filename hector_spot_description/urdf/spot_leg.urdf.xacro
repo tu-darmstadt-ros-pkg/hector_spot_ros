@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:include filename="$(find hector_xacro_tools)/urdf/joint_macros.urdf.xacro" />
+
     <xacro:macro name="spot_leg" params="leg_name" >
 
         <xacro:if value="${leg_name == 'front_left'}">
@@ -119,36 +121,9 @@
             <origin xyz="0 0 -${lower_leg_to_foot_z}" rpy="0 0 0" />
         </joint>
 
-        <transmission name="${leg_name}_hip_x_trans">
-            <type>transmission_interface/SimpleTransmission</type>
-            <joint name="${leg_name}_hip_x">
-                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-            </joint>
-            <actuator name="${leg_name}_hip_x_actuator">
-                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-                <mechanicalReduction>1</mechanicalReduction>
-            </actuator>
-        </transmission>
-        <transmission name="${leg_name}_hip_y_trans">
-            <type>transmission_interface/SimpleTransmission</type>
-            <joint name="${leg_name}_hip_y">
-                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-            </joint>
-            <actuator name="${leg_name}_hip_y_actuator">
-                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-                <mechanicalReduction>1</mechanicalReduction>
-            </actuator>
-        </transmission>
-        <transmission name="${leg_name}_knee_trans">
-            <type>transmission_interface/SimpleTransmission</type>
-            <joint name="${leg_name}_knee">
-                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-            </joint>
-            <actuator name="${leg_name}_knee_actuator">
-                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-                <mechanicalReduction>1</mechanicalReduction>
-            </actuator>
-        </transmission>
-
+        <xacro:joint_standard_transmission name="${leg_name}_hip_x"/>
+        <xacro:joint_standard_transmission name="${leg_name}_hip_y"/>
+        <xacro:joint_standard_transmission name="${leg_name}_knee"/>
+        
     </xacro:macro>
 </robot>
