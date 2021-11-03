@@ -1,9 +1,9 @@
 import time
 from bosdyn.client.robot_command import RobotCommandClient, RobotCommandBuilder
-from bosdyn.api import robot_command_pb2, basic_command_pb2, mobility_command_pb2
+from bosdyn.api import robot_command_pb2, basic_command_pb2, mobility_command_pb2, synchronized_command_pb2
 from bosdyn.api.spot import robot_command_pb2 as spot_command_pb2
 from bosdyn import geometry
-from bosdyn.client.frame_helpers import VISION_FRAME_NAME
+from bosdyn.client.frame_helpers import ODOM_FRAME_NAME
 
 from hector_spot_ros.utils import utils
 from hector_spot_ros.periodic_tasks import PeriodicRobotCommandFeedback
@@ -34,11 +34,11 @@ class MovementInterface:
         self._command_client.robot_command(cmd)
 
     def stand_up(self):
-        cmd = RobotCommandBuilder.stand_command()
+        cmd = RobotCommandBuilder.synchro_stand_command()
         self._command_client.robot_command(cmd)
 
     def sit_down(self):
-        cmd = RobotCommandBuilder.sit_command()
+        cmd = RobotCommandBuilder.synchro_sit_command()
         self._command_client.robot_command(cmd)
 
     def send_body_pose_ypr(self, yaw=0.0, pitch=0.0, roll=0.0, body_height=0.0):
@@ -57,7 +57,7 @@ class MovementInterface:
         self._send_body_pose(rotation, body_height)
 
     def _send_body_pose(self, rotation, body_height):
-        cmd = RobotCommandBuilder.stand_command(footprint_R_body=rotation, body_height=body_height)
+        cmd = RobotCommandBuilder.synchro_stand_command(footprint_R_body=rotation, body_height=body_height)
         self._command_client.robot_command_async(cmd, end_time_secs=time.time() + VELOCITY_CMD_DURATION)
 
     def send_velocity_command(self, v_x, v_y, v_rot):
@@ -66,12 +66,12 @@ class MovementInterface:
             return
         self._zero_velocity_commanded = zero_command
 
-        cmd = RobotCommandBuilder.velocity_command(v_x=v_x, v_y=v_y, v_rot=v_rot, params=self.mobility_params)
+        cmd = RobotCommandBuilder.synchro_velocity_command(v_x=v_x, v_y=v_y, v_rot=v_rot, params=self.mobility_params)
         self._command_client.robot_command_async(cmd, end_time_secs=time.time() + VELOCITY_CMD_DURATION)
 
     def follow_trajectory_command(self, trajectory, desired_speed=0.5, finished_cb=None):
         # Build command
-        trajectory_command = basic_command_pb2.SE2TrajectoryCommand.Request(trajectory=trajectory, se2_frame_name=VISION_FRAME_NAME)
+        trajectory_command = basic_command_pb2.SE2TrajectoryCommand.Request(trajectory=trajectory, se2_frame_name=ODOM_FRAME_NAME)
 
         mobility_params = spot_command_pb2.MobilityParams()
         mobility_params.CopyFrom(self.mobility_params)
@@ -81,7 +81,9 @@ class MovementInterface:
         mobility_params_proto = utils.to_any(mobility_params)
         mobility_command = mobility_command_pb2.MobilityCommand.Request(
             se2_trajectory_request=trajectory_command, params=mobility_params_proto)
-        command = robot_command_pb2.RobotCommand(mobility_command=mobility_command)
+        synchronized_command = synchronized_command_pb2.SynchronizedCommand.Request(
+            mobility_command=mobility_command)
+        command = robot_command_pb2.RobotCommand(synchronized_command=synchronized_command)
         # Send command
         command_id = self._command_client.robot_command(command, end_time_secs=time.time() + 30.0)  # TODO set end_time based on trajectory length
 
