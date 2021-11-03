@@ -24,6 +24,10 @@
   <exec_depend>hector_spot_ros_msgs</exec_depend>
   <exec_depend>grid_map_msgs</exec_depend>
   <exec_depend>visualization_msgs</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>topic_tools</exec_depend>
+  <exec_depend>message_to_tf</exec_depend>
 
   <export>
   </export>

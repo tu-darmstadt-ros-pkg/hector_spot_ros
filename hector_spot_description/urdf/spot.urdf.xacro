@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<robot name="spot" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find hector_spot_description)/urdf/spot_macro.urdf.xacro"/>
+
+  <xacro:spot_macro lidar_payload="false" />
+</robot>

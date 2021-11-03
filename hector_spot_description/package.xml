@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>hector_spot_description</name>
+  <version>0.0.0</version>
+  <description>URDF description files and meshes of the Boston Dynamics Spot Robot</description>
+
+  <maintainer email="oehler@sim.tu-darmstadt.de">Martin Oehler</maintainer>
+
+  <license>BSD</license>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>joint_state_publisher_gui</exec_depend>
+  <exec_depend>rviz</exec_depend>
+  <exec_depend>hector_sensors_description</exec_depend>
+
+  <export>
+  </export>
+</package>
