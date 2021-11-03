@@ -22,12 +22,12 @@
         <link name="${leg_name}_hip">
             <visual>
                 <geometry>
-                    <mesh filename="package://spot_description/meshes/${leg_name}_hip.dae" />
+                    <mesh filename="package://hector_spot_description/meshes/${leg_name}_hip.dae" />
                 </geometry>
             </visual>
             <collision>
                 <geometry>
-                    <mesh filename="package://spot_description/meshes/${leg_name}_hip_collision.stl" /> <!-- TODO replace with primitive -->
+                    <mesh filename="package://hector_spot_description/meshes/${leg_name}_hip_collision.stl" /> <!-- TODO replace with primitive -->
                 </geometry>
             </collision>
             <inertial>
@@ -49,12 +49,12 @@
         <link name="${leg_name}_upper_leg">
             <visual>
                 <geometry>
-                    <mesh filename="package://spot_description/meshes/${leg_name}_upper_leg.dae" />
+                    <mesh filename="package://hector_spot_description/meshes/${leg_name}_upper_leg.dae" />
                 </geometry>
             </visual>
             <collision>
                 <geometry>
-                    <mesh filename="package://spot_description/meshes/${leg_name}_upper_leg_collision.stl" /> <!-- TODO replace with primitive -->
+                    <mesh filename="package://hector_spot_description/meshes/${leg_name}_upper_leg_collision.stl" /> <!-- TODO replace with primitive -->
                 </geometry>
             </collision>
             <inertial>
@@ -77,12 +77,12 @@
         <link name="${leg_name}_lower_leg">
             <visual>
                 <geometry>
-                    <mesh filename="package://spot_description/meshes/${leg_name}_lower_leg.dae" />
+                    <mesh filename="package://hector_spot_description/meshes/${leg_name}_lower_leg.dae" />
                 </geometry>
             </visual>
             <collision>
                 <geometry>
-                    <mesh filename="package://spot_description/meshes/${leg_name}_lower_leg_collision.stl" scale="0.82 0.97 0.98"/> <!-- TODO replace with primitive -->
+                    <mesh filename="package://hector_spot_description/meshes/${leg_name}_lower_leg_collision.stl" scale="0.82 0.97 0.98"/> <!-- TODO replace with primitive -->
                 </geometry>
             </collision>
             <inertial>
