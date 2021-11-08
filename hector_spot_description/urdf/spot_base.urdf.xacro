@@ -11,7 +11,7 @@
   <xacro:property name="lower_leg_to_foot_z" value="0.37" />
 
   <xacro:property name="base_mass" value="16.0" />
-  <xacro:property name="base_length" value="0.86" />
+  <xacro:property name="base_length" value="0.872" />
   <xacro:property name="base_width" value="0.21" />
   <xacro:property name="base_height" value="0.17" />
 
@@ -31,12 +31,14 @@
             </geometry>
         </visual>
         <collision>
+            <origin xyz="0.006 0 0" rpy="0 0 0" />
             <geometry>
 <!--               <mesh filename="package://hector_spot_description/meshes/body_collision.stl" />  -->
-                <box size="0.872 0.239 0.195" />
+                <box size="${base_length} ${base_width} ${base_height}" />
             </geometry>
         </collision>
         <inertial>
+            <origin xyz="0.006 0 0" rpy="0 0 0" />
             <mass value="${base_mass}"/>
             <inertia ixx="${(1/12) * base_mass * (base_width * base_width + base_height * base_height)}" ixy="0.0" ixz="0.0"
                         iyy="${(1/12) * base_mass * (base_length * base_length + base_height * base_height)}" iyz="0.0"
