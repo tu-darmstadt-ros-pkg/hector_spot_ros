@@ -15,7 +15,6 @@
   <xacro:property name="base_width" value="0.21" />
   <xacro:property name="base_height" value="0.17" />
 
-
   <xacro:macro name="spot_base">
     
     <link name="base_link"/>
@@ -33,7 +32,8 @@
         </visual>
         <collision>
             <geometry>
-              <mesh filename="package://hector_spot_description/meshes/body_collision.stl" /> <!-- TODO replace with primitive -->
+<!--               <mesh filename="package://hector_spot_description/meshes/body_collision.stl" />  -->
+                <box size="0.872 0.239 0.195" />
             </geometry>
         </collision>
         <inertial>

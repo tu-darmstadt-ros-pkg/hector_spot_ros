@@ -3,9 +3,9 @@
     <xacro:include filename="$(find hector_xacro_tools)/urdf/joint_macros.urdf.xacro" />
     
     <xacro:property name="hip_mass" value="2.0" />
-    <xacro:property name="hip_length" value="0.13" />
-    <xacro:property name="hip_width" value="0.09" />
-    <xacro:property name="hip_height" value="0.09" />
+    <xacro:property name="hip_length" value="0.142" />
+    <xacro:property name="hip_width" value="0.1" />
+    <xacro:property name="hip_height" value="0.0941" />
 
     <xacro:property name="upper_leg_mass" value="1.0" />
     <xacro:property name="upper_leg_length" value="0.076" />
@@ -29,11 +29,14 @@
                 </geometry>
             </visual>
             <collision>
+                <origin xyz="${front * -0.023792} ${left * 0.011698} 0.000026 " rpy="0 0 0" />
                 <geometry>
-                    <mesh filename="package://hector_spot_description/meshes/${leg_name}_hip_collision.stl" /> <!-- TODO replace with primitive -->
+<!--                     <mesh filename="package://hector_spot_description/meshes/${leg_name}_hip_collision.stl" />  -->
+                  <box size="${hip_length} ${hip_width} ${hip_height}" />
                 </geometry>
             </collision>
             <inertial>
+                <origin xyz="${front * -0.023792} ${left * 0.011698} 0.000026 " rpy="0 0 0" />
                 <mass value="${hip_mass}"/>
                 <inertia ixx="${(1/12) * hip_mass * (hip_width * hip_width + hip_height * hip_height)}" ixy="0.0" ixz="0.0"
                             iyy="${(1/12) * hip_mass * (hip_length * hip_length + hip_height * hip_height)}" iyz="0.0"
@@ -56,8 +59,10 @@
                 </geometry>
             </visual>
             <collision>
+                <origin xyz="0 0 -0.14" rpy="0 0 0" />
                 <geometry>
-                    <mesh filename="package://hector_spot_description/meshes/${leg_name}_upper_leg_collision.stl" /> <!-- TODO replace with primitive -->
+<!--                     <mesh filename="package://hector_spot_description/meshes/${leg_name}_upper_leg_collision.stl" />  -->
+                    <box size="${upper_leg_length} ${upper_leg_width} ${upper_leg_height}" />
                 </geometry>
             </collision>
             <inertial>
