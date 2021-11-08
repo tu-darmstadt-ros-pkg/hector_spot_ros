@@ -1,7 +1,21 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
     <xacro:include filename="$(find hector_xacro_tools)/urdf/joint_macros.urdf.xacro" />
+    
+    <xacro:property name="hip_mass" value="2.0" />
+    <xacro:property name="hip_length" value="0.13" />
+    <xacro:property name="hip_width" value="0.09" />
+    <xacro:property name="hip_height" value="0.09" />
 
+    <xacro:property name="upper_leg_mass" value="1.0" />
+    <xacro:property name="upper_leg_length" value="0.076" />
+    <xacro:property name="upper_leg_width" value="0.076" />
+    <xacro:property name="upper_leg_height" value="0.425" />
+
+    <xacro:property name="lower_leg_mass" value="0.5" />
+    <xacro:property name="lower_leg_length" value="0.035" />
+    <xacro:property name="lower_leg_width" value="0.045" />
+    <xacro:property name="lower_leg_height" value="0.42" />
 
     <xacro:macro name="spot_leg" params="leg_name front left" >
       
