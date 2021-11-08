@@ -77,5 +77,9 @@
     <xacro:spot_leg leg_name="front_right"/>
     <xacro:spot_leg leg_name="rear_left"/>
     <xacro:spot_leg leg_name="rear_right"/>  
+    <xacro:spot_leg leg_name="front_left" front="1" left="1"/>
+    <xacro:spot_leg leg_name="front_right" front="1" left="-1"/>
+    <xacro:spot_leg leg_name="rear_left" front="-1" left="1"/>
+    <xacro:spot_leg leg_name="rear_right" front="-1" left="-1"/>  
   </xacro:macro>
 </robot>

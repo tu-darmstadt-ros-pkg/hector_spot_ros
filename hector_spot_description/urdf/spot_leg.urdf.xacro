@@ -4,22 +4,9 @@
 
     <xacro:macro name="spot_leg" params="leg_name" >
 
-        <xacro:if value="${leg_name == 'front_left'}">
-            <xacro:property name="base_to_hip_xyz"            value="${base_to_hip_x} ${base_to_hip_y} 0" />
-            <xacro:property name="hip_to_upper_leg_xyz"       value="0 ${hip_to_upper_leg_y} 0" />
-        </xacro:if>
-        <xacro:if value="${leg_name == 'front_right'}">
-            <xacro:property name="base_to_hip_xyz"            value="${base_to_hip_x} -${base_to_hip_y} 0" />
-            <xacro:property name="hip_to_upper_leg_xyz"       value="0 -${hip_to_upper_leg_y} 0" />
-        </xacro:if>
-        <xacro:if value="${leg_name == 'rear_left'}">
-            <xacro:property name="base_to_hip_xyz"            value="-${base_to_hip_x} ${base_to_hip_y} 0" />
-            <xacro:property name="hip_to_upper_leg_xyz"       value="0 ${hip_to_upper_leg_y} 0" />
-        </xacro:if>
-        <xacro:if value="${leg_name == 'rear_right'}">
-            <xacro:property name="base_to_hip_xyz"            value="-${base_to_hip_x} -${base_to_hip_y} 0" />
-            <xacro:property name="hip_to_upper_leg_xyz"       value="0 -${hip_to_upper_leg_y} 0" />
-        </xacro:if>
+      
+        <xacro:property name="base_to_hip_xyz"            value="${front * base_to_hip_x} ${left * base_to_hip_y} 0" />
+        <xacro:property name="hip_to_upper_leg_xyz"       value="0 ${left * hip_to_upper_leg_y} 0" />
 
         <link name="${leg_name}_hip">
             <visual>
