@@ -4,7 +4,7 @@ SHELL ["/bin/bash", "-c"]
 ENV SDK_VERSION=2.3.5
 
 # Install dependencies
-RUN apt update && apt install -y python3-pip python-catkin-tools
+RUN apt-get update && apt-get install -y python3-pip python-catkin-tools
 RUN pip3 install --upgrade pip
 
 # Install Python3 ROS dependencies
