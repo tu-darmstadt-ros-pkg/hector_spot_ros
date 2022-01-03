@@ -197,6 +197,37 @@ def battery_state_proto_to_msg(battery_states, clock_skew):
     return battery_state_msg
 
 
+# The ROS world does not like points in joint names (especially Gazebo)
+# Names are compatible with Clearpath driver
+pretty_joint_names = {
+    "fl.hx": "front_left_hip_x",
+    "fl.hy": "front_left_hip_y",
+    "fl.kn": "front_left_knee",
+    "fr.hx": "front_right_hip_x",
+    "fr.hy": "front_right_hip_y",
+    "fr.kn": "front_right_knee",
+    "hl.hx": "rear_left_hip_x",
+    "hl.hy": "rear_left_hip_y",
+    "hl.kn": "rear_left_knee",
+    "hr.hx": "rear_right_hip_x",
+    "hr.hy": "rear_right_hip_y",
+    "hr.kn": "rear_right_knee",
+}
+
+
+def joint_state_proto_to_msg(kinematic_state, clock_skew):
+    timestamp = kinematic_state.acquisition_timestamp
+    joint_state_msg = sensor_msgs.msg.JointState()
+    joint_state_msg.header.stamp = timestamp_proto_to_ros_time(timestamp, clock_skew)
+    for joint_state in kinematic_state.joint_states:
+        pretty_name = pretty_joint_names.get(joint_state.name, joint_state.name)
+        joint_state_msg.name.append(pretty_name)
+        joint_state_msg.position.append(joint_state.position.value)
+        joint_state_msg.velocity.append(joint_state.velocity.value)
+        joint_state_msg.effort.append(joint_state.load.value)
+    return joint_state_msg
+
+
 def transform_stamped_proto_to_msg(timestamp, frame_id, child_frame_id, transform, clock_skew):
     transform_msg = geometry_msgs.msg.TransformStamped()
     transform_msg.header.stamp = timestamp_proto_to_ros_time(timestamp, clock_skew)
