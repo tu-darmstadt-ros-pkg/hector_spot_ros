@@ -1,8 +1,8 @@
-
-
 # hector_spot_ros
 ## Overview
 This package provides a [ROS](http://www.ros.org/) interface to control the [Boston Dynamics Spot](https://www.bostondynamics.com/spot). It provides most functionalities of the [spot-sdk](https://github.com/boston-dynamics/spot-sdk) via topics, services and actions, e.g. power on/off, movement commands, robot state, sensor access and GraphNav functionality.
+
+**Latest supported Spot SDK version: 2.3.5**
 
 ## Getting started
 ### Docker Install
