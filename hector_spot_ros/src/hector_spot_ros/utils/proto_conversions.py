@@ -262,7 +262,7 @@ def mobility_params_msg_to_proto(mobility_params_msg):
 
     # Terrain params
     mobility_params.terrain_params.ground_mu_hint.value = mobility_params_msg.terrain_params.ground_mu_hint
-    mobility_params.terrain_params.enable_grated_floor = mobility_params_msg.terrain_params.enable_grated_floor
+    # mobility_params.terrain_params.enable_grated_floor = mobility_params_msg.terrain_params.enable_grated_floor
 
     mobility_params.disallow_stair_tracker = mobility_params_msg.disallow_stair_tracker
 

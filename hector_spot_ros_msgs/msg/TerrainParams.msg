@@ -6,4 +6,4 @@
 float64 ground_mu_hint
 
 # When true, the robot will assume the ground below it is made of grated metal.
-bool enable_grated_floor
+#bool enable_grated_floor
