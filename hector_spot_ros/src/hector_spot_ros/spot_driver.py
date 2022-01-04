@@ -8,7 +8,7 @@ import time
 import rospy
 
 from hector_spot_ros import movement_interface, camera_interface, state_interface, graph_nav_interface
-from hector_spot_ros.utils.utils import wait_for_client
+from hector_spot_ros.utils.utils import wait_for_client, SpotConfig
 
 SUPPORTED_MAJOR_VERSION = 2
 
@@ -60,13 +60,14 @@ class SpotDriver:
         self._robot.start_time_sync()
 
         # Register E-stop
-        estop_name = 'ros-spot-estop'
-        # Wait for e-stop service to become available
-        estop_client = wait_for_client(self._robot, bosdyn.client.estop.EstopClient.default_service_name)
-        self._estop_endpoint = bosdyn.client.estop.EstopEndpoint(client=estop_client,
-                                                                 name=estop_name,
-                                                                 estop_timeout=9.0)
-        self._estop_endpoint.force_simple_setup()
+        if not config.external_estop:
+            estop_name = 'ros-spot-estop'
+            # Wait for e-stop service to become available
+            estop_client = wait_for_client(self._robot, bosdyn.client.estop.EstopClient.default_service_name)
+            self._estop_endpoint = bosdyn.client.estop.EstopEndpoint(client=estop_client,
+                                                                     name=estop_name,
+                                                                     estop_timeout=9.0)
+            self._estop_endpoint.force_simple_setup()
 
         # Handle lease keep alive
         self._lease_client = self._robot.ensure_client(bosdyn.client.lease.LeaseClient.default_service_name)
