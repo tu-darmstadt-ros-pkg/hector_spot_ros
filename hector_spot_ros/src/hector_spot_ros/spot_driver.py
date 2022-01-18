@@ -19,6 +19,7 @@ class SpotDriver:
         # A handle to the spot robot
         self._robot = None
         # A handle to the estop endpoint
+        self._external_estop = False
         self._estop_endpoint = None
         self._estop_keep_alive = None
         # A handle to the lease for the robot
@@ -60,7 +61,8 @@ class SpotDriver:
         self._robot.start_time_sync()
 
         # Register E-stop
-        if not config.external_estop:
+        self._external_estop = config.external_estop
+        if not self._external_estop:
             estop_name = 'ros-spot-estop'
             # Wait for e-stop service to become available
             estop_client = wait_for_client(self._robot, bosdyn.client.estop.EstopClient.default_service_name)
@@ -84,7 +86,8 @@ class SpotDriver:
 
     def start(self, power_on=False):
         # Keep E-stop alive
-        self._estop_keep_alive = bosdyn.client.estop.EstopKeepAlive(self._estop_endpoint)
+        if not self._external_estop:
+            self._estop_keep_alive = bosdyn.client.estop.EstopKeepAlive(self._estop_endpoint)
 
         # Acquire lease
         self._lease = self._lease_client.acquire()
