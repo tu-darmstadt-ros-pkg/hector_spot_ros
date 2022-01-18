@@ -10,7 +10,7 @@ import rospy
 from hector_spot_ros import movement_interface, camera_interface, state_interface, graph_nav_interface
 from hector_spot_ros.utils.utils import wait_for_client, SpotConfig
 
-SUPPORTED_MAJOR_VERSION = 2
+SUPPORTED_MAJOR_VERSION = 3
 
 
 class SpotDriver:
