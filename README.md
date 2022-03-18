@@ -198,7 +198,7 @@ If the driver loses connection, the robot will go into a safe state after a few 
     Localizes Spot in the current GraphNav.
 
 #### Actions
-* **`/controller/follow_path`** ([move_base_lite_msgs/FollowPathAction])
+* **`~/follow_path`** ([move_base_lite_msgs/FollowPathAction])
 
     Command spot to follow a path.
 

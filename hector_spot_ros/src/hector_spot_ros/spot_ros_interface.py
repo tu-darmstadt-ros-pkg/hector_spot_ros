@@ -151,7 +151,7 @@ class SpotROSInterface:
         self.set_localization_server = rospy.Service("/graph_nav/set_localization", hector_spot_ros_msgs.srv.SetLocalization, self.set_localization_callback)
 
         # Action Server
-        self.follow_path_as = actionlib.SimpleActionServer("/controller/follow_path",
+        self.follow_path_as = actionlib.SimpleActionServer("~follow_path",
                                                            move_base_lite_msgs.msg.FollowPathAction,
                                                            # execute_cb=self.follow_path_execute_callback,
                                                            auto_start=False)
