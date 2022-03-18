@@ -4,7 +4,7 @@
 
   <arg name="credentials_file" default="$(find hector_spot_ros)/config/spot-credentials.yaml"/>
 
-  <node pkg="hector_spot_ros" type="spot_ros_interface_node.py" name="spot_ros_interface_node" output="screen" respawn="false">
+  <node pkg="hector_spot_ros" type="spot_ros_interface_node.py" name="spot_ros_interface_node" output="screen" respawn="true">
     <rosparam file="$(find hector_spot_ros)/config/spot.yaml" command="load"/>
     <rosparam file="$(arg credentials_file)" command="load"/>
   </node>
