@@ -3,13 +3,18 @@
 <robot name="spot" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:include filename="$(find hector_spot_description)/urdf/spot_base.urdf.xacro"/>
   <xacro:include filename="$(find hector_spot_description)/urdf/spot_lidar_payload.urdf.xacro"/>
+  <xacro:include filename="$(find hector_spot_description)/urdf/spot_cam_payload.urdf.xacro"/>
 
 
-  <xacro:macro name="spot_macro" params="lidar_payload:=false">
+  <xacro:macro name="spot_macro" params="lidar_payload:=false cam_payload:=false">
     <xacro:spot_base/>
     
     <xacro:if value="${lidar_payload}">
       <xacro:spot_lidar_payload/>
+    </xacro:if>
+
+    <xacro:if value="${cam_payload}">
+      <xacro:spot_cam_payload/>
     </xacro:if>
   </xacro:macro>
 </robot>
