@@ -7,10 +7,41 @@
   <xacro:property name="parent" value="base_link"/>
   <xacro:property name="use_gpu_lidar" value="$(optenv HECTOR_SIM_USE_GPU_LIDAR false)"/>
 
+  <xacro:property name="spot_core_length" value="0.21"/>
+  <xacro:property name="spot_core_width" value="0.19"/>
+  <xacro:property name="spot_core_height" value="0.06"/>
+
   <xacro:macro name="spot_lidar_payload">
     <!-- VLP-16 lidar -->
     <xacro:vlp16_advanced_parameters name="${name}_laser"  parent="${parent}" ros_topic="/${name}/vlp16" update_rate="10" horizontal_samples="512" vertical_samples="8" min_range="0.1" max_range="100" use_gpu="${use_gpu_lidar}">
       <origin xyz="-0.250 0 0.19884" rpy="0 0 0"/>
     </xacro:vlp16_advanced_parameters>
   </xacro:macro>
+
+  <!-- SpotCore -->
+    <joint name="spot_core_payload_joint" type="fixed">
+      <origin xyz="${-0.03 + spot_core_length/2.0} 0 ${spot_core_height/2.0}" rpy="0 0 0"/>
+      <parent link="rear_rail"/>
+      <child link="spot_core_link"/>
+    </joint>
+
+    <link name="spot_core_link">
+      <xacro:inertial_cuboid_with_pose mass="1" x_length="${spot_core_length}" y_length="${spot_core_width}" z_length="${spot_core_height}">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </xacro:inertial_cuboid_with_pose>
+
+      <visual>
+        <geometry>
+          <box size="${spot_core_length} ${spot_core_width} ${spot_core_height}"/>
+        </geometry>
+        <material name="LightGray">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material>
+      </visual>
+      <collision>
+        <geometry>
+          <box size="${spot_core_length} ${spot_core_width} ${spot_core_height}"/>
+        </geometry>
+      </collision>
+    </link>
 </robot>
