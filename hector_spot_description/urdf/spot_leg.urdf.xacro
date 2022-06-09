@@ -65,6 +65,14 @@
                     <box size="${upper_leg_length} ${upper_leg_width} ${upper_leg_height}" />
                 </geometry>
             </collision>
+
+            <!-- collision for handle -->
+              <collision>
+                <origin xyz="${-upper_leg_length/2 - 0.025} 0 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="0.05 0.03 0.11" />
+                </geometry>
+            </collision>
             <inertial>
                 <origin xyz="0 0 -0.14" rpy="0 0 0" />
                 <mass value="${upper_leg_mass}"/>
