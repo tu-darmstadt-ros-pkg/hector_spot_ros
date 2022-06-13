@@ -151,7 +151,7 @@ class SpotROSInterface:
         self.set_localization_server = rospy.Service("/graph_nav/set_localization", hector_spot_ros_msgs.srv.SetLocalization, self.set_localization_callback)
 
         # Action Server
-        self.follow_path_as = actionlib.SimpleActionServer("/controller/follow_path",
+        self.follow_path_as = actionlib.SimpleActionServer("~follow_path",
                                                            move_base_lite_msgs.msg.FollowPathAction,
                                                            # execute_cb=self.follow_path_execute_callback,
                                                            auto_start=False)
@@ -474,14 +474,7 @@ class SpotROSInterface:
             self.publish_map_to_odom(self.map_to_odom_vision_tf_pub, self._map_to_vision_transform, odom_msg.header.stamp)
 
     def publish_joint_states(self, robot_state):
-        timestamp = robot_state.kinematic_state.acquisition_timestamp
-        joint_state_msg = sensor_msgs.msg.JointState()
-        joint_state_msg.header.stamp = proto_conversions.timestamp_proto_to_ros_time(timestamp, self._driver.get_clock_skew())
-        for joint_state in robot_state.kinematic_state.joint_states:
-            joint_state_msg.name.append(joint_state.name)
-            joint_state_msg.position.append(joint_state.position.value)
-            joint_state_msg.velocity.append(joint_state.velocity.value)
-            joint_state_msg.effort.append(joint_state.load.value)
+        joint_state_msg = proto_conversions.joint_state_proto_to_msg(robot_state.kinematic_state, self._driver.get_clock_skew())
         self.joint_state_pub.publish(joint_state_msg)
 
     def publish_robot_info(self):

@@ -16,6 +16,7 @@ class SpotConfig:
         self.password = None
         self.control_rate = 20
         self.auto_power_on = False
+        self.external_estop = False
 
 
 def load_config_from_ns(ns):
@@ -26,6 +27,7 @@ def load_config_from_ns(ns):
     config.password = load_mandatory_parameter(ns + "password")
     config.control_rate = rospy.get_param(ns + "control_rate", config.control_rate)
     config.auto_power_on = rospy.get_param(ns + "auto_power_on", config.auto_power_on)
+    config.external_estop = rospy.get_param(ns + "external_estop", config.external_estop)
     return config
 
 
