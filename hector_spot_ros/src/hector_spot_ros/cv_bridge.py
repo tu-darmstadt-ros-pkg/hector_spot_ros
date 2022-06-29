@@ -79,7 +79,7 @@ class CvBridge(object):
                                         'int16': '16S', 'int32': '32S', 'float32': '32F',
                                         'float64': '64F'}
         self.numpy_type_to_cvtype.update(dict((v, k) for (k, v) in self.numpy_type_to_cvtype.items()))
-        self.cvtype_to_sensor_msg_type = {'8UC1': 'mono8'}
+        self.cvtype_to_sensor_msg_type = {'8UC1': 'mono8', '8UC3': 'rgb8'}
 
     def dtype_with_channels_to_cvtype2(self, dtype, n_channels):
         return '%sC%d' % (self.numpy_type_to_cvtype[dtype.name], n_channels)
