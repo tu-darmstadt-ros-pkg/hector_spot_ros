@@ -2,6 +2,7 @@
 
 <robot name="spot_lidar_payload" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:include filename="$(find hector_sensors_description)/urdf/vlp16.urdf.xacro" />
+  <xacro:include filename="$(find hector_xacro_tools)/urdf/inertia_tensors.urdf.xacro" />
   
   <xacro:property name="name" value="lidar"/>
   <xacro:property name="parent" value="base_link"/>
