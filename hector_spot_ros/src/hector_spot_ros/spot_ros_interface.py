@@ -54,6 +54,12 @@ class SpotROSInterface:
         self._body_pitch_vel = 0
         self._body_yaw_vel = 0
 
+        self.motor_enabled = None
+
+        # Periodic body pose
+        self._body_pose_timer = None
+        self._periods_without_new_body_twist = 0
+
         self._cv_bridge = cv_bridge.CvBridge()
 
         # Status
@@ -85,7 +91,6 @@ class SpotROSInterface:
         self.kinematic_odom_pub = rospy.Publisher("/odom_kinematic", nav_msgs.msg.Odometry, queue_size=10)
         self.vision_odom_pub = rospy.Publisher("/odom_vision", nav_msgs.msg.Odometry, queue_size=10)
         self.motor_enabled_pub = rospy.Publisher("/motor_enabled", std_msgs.msg.Bool, queue_size=10, latch=True)
-        self.motor_enabled = None
         self.tf_static_pub = rospy.Publisher("/tf_static", tf2_msgs.msg.TFMessage, queue_size=100, latch=True)
         self.map_to_odom_vision_tf_pub = rospy.Publisher("~map_to_odom_vision_tf", tf2_msgs.msg.TFMessage, queue_size=100)
         self.map_to_odom_kinematic_tf_pub = rospy.Publisher("~map_to_odom_kinematic_tf", tf2_msgs.msg.TFMessage, queue_size=100)
@@ -173,10 +178,6 @@ class SpotROSInterface:
         self._driver.state.register_local_grid_callback(self.grid_map_callback)
         self._driver.graph_nav.periodic_localization_state.register_callback(self.localization_state_callback)
         self._driver.graph_nav.periodic_localization_state.enabled = True
-
-        # Periodic body pose
-        self._body_pose_timer = None
-        self._periods_without_new_body_twist = 0
 
         # Publish camera transforms once
         for image_source in image_sources:
