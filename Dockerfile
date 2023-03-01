@@ -1,7 +1,7 @@
 FROM ros:melodic-ros-base
 SHELL ["/bin/bash", "-c"]
 
-ENV SDK_VERSION=3.0.3
+ENV SDK_VERSION=3.1.2.1
 # Install dependencies
 RUN apt-get update && apt-get install -y python3-pip python-catkin-tools
 RUN pip3 install --upgrade pip
