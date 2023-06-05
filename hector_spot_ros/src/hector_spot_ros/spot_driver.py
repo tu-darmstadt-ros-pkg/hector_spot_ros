@@ -73,7 +73,6 @@ class SpotDriver:
 
         # Handle lease keep alive
         self._lease_client = self._robot.ensure_client(bosdyn.client.lease.LeaseClient.default_service_name)
-        self._lease_keep_alive = bosdyn.client.lease.LeaseKeepAlive(self._lease_client)
 
         # Create clients
         self.movement = movement_interface.MovementInterface(self._robot)
@@ -90,7 +89,8 @@ class SpotDriver:
             self._estop_keep_alive = bosdyn.client.estop.EstopKeepAlive(self._estop_endpoint)
 
         # Acquire lease
-        self._lease = self._lease_client.acquire()
+        self._lease_keep_alive = bosdyn.client.lease.LeaseKeepAlive(self._lease_client, must_acquire=True,
+                                                                    return_at_exit=True)
 
         # Establish time sync with the robot
         self._robot.time_sync.wait_for_sync()
@@ -119,7 +119,7 @@ class SpotDriver:
 
         # Return lease
         if self._lease_keep_alive:
-            self._lease_client.return_lease(self._lease)
+            self._lease_keep_alive.shutdown()
             self._lease = None
 
     def power_on(self):
